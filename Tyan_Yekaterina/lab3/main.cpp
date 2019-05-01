@@ -156,13 +156,16 @@ public:
                 up_down_edge[p[i + 1]][p[i]] += minim;
                 edge[p[i]][p[i + 1]] -= minim;
                 if(edge[p[i]][p[i + 1]] < 0)
-                    edge[p[i]][p[i + 1]] += minim;
+                {
+                    edge[p[i]][p[i + 1]] = -1;
+                    up_down_edge[p[i + 1]][p[i]] = -1;
+                }
                 if(edge_out[p[i]][p[i + 1]] != -1)
                     edge_out[p[i]][p[i + 1]] +=minim;
                 if(edge[p[i]][p[i + 1]] == 0){
-                   edge[p[i]][p[i + 1]] = -1;
-                   up_down_edge[p[i + 1]][p[i]] = -1;
-               }
+                    edge[p[i]][p[i + 1]] = -1;
+                    up_down_edge[p[i + 1]][p[i]] = -1;
+                }
             }
         }
         while(!p.empty());
@@ -182,8 +185,6 @@ public:
                         edge_out[j][i] = abs(edge_out[j][i] - edge_out[i][j]);
                         edge_out[i][j] = 0;
                     }
-                    if(up_down_edge[j][i] > 0 && edge[j][i] == -1)
-                        edge_out[i][j] = 0;
                     auto tmp = make_tuple(vertex[i], vertex[j], edge_out[i][j]);
                     out_in.push_back(tmp);
                 }
@@ -198,8 +199,21 @@ public:
     
     ~flow()
     {
+        int n = sizeof(edge[0]) /  sizeof(int);
+        for(int i = 0; i < n; i++)
+        {
+            delete edge[i];
+        }
         delete edge;
+        for(int i = 0; i < n; i++)
+        {
+            delete up_down_edge[i];
+        }
         delete up_down_edge;
+        for(int i = 0; i < n; i++)
+        {
+            delete edge_out[i];
+        }
         delete edge_out;
     }
     
