@@ -11,6 +11,7 @@ class flow
 public:
     flow(int n = 0)
     {
+        num = n;
         edge = new int*[n];
         for(int i = 0; i < n; i++)
         {
@@ -199,18 +200,17 @@ public:
     
     ~flow()
     {
-        int n = sizeof(edge[0]) /  sizeof(int);
-        for(int i = 0; i < n; i++)
+        for(int i = 0; i < num; i++)
         {
             delete edge[i];
         }
         delete edge;
-        for(int i = 0; i < n; i++)
+        for(int i = 0; i < num; i++)
         {
             delete up_down_edge[i];
         }
         delete up_down_edge;
-        for(int i = 0; i < n; i++)
+        for(int i = 0; i < num; i++)
         {
             delete edge_out[i];
         }
@@ -223,6 +223,7 @@ private:
     vector< char > vertex;
     int** edge_out;
     vector<tuple<char,char,int>> out_in;
+    int num;
 };
 
 int main()
