@@ -202,19 +202,19 @@ public:
     {
         for(int i = 0; i < num; i++)
         {
-            delete edge[i];
+            delete[] edge[i];
         }
-        delete edge;
+        delete[] edge;
         for(int i = 0; i < num; i++)
         {
-            delete up_down_edge[i];
+            delete[] up_down_edge[i];
         }
-        delete up_down_edge;
+        delete[] up_down_edge;
         for(int i = 0; i < num; i++)
         {
-            delete edge_out[i];
+            delete[] edge_out[i];
         }
-        delete edge_out;
+        delete[] edge_out;
     }
     
 private:
